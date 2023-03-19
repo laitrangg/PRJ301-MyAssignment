@@ -14,16 +14,14 @@ public class Subject {
 
     private int id;
     private String name;
-    private String fullName;
     private ArrayList<Group> groups = new ArrayList<>();
 
     public Subject() {
     }
 
-    public Subject(int id, String name, String fullName) {
+    public Subject(int id, String name) {
         this.id = id;
         this.name = name;
-        this.fullName = fullName;
     }
 
     public int getId() {
@@ -40,14 +38,6 @@ public class Subject {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public ArrayList<Group> getGroups() {

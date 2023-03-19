@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author My PC
@@ -12,15 +14,14 @@ public class TimeSlot {
 
     private int id;
     private String description;
-    private String name;
+    private ArrayList<Session> sessions = new ArrayList<>();
 
     public TimeSlot() {
     }
 
-    public TimeSlot(int id, String description, String name) {
+    public TimeSlot(int id, String description) {
         this.id = id;
         this.description = description;
-        this.name = name;
     }
 
     public int getId() {
@@ -39,12 +40,12 @@ public class TimeSlot {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
+    public ArrayList<Session> getSessions() {
+        return sessions;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSessions(ArrayList<Session> sessions) {
+        this.sessions = sessions;
     }
 
 }
