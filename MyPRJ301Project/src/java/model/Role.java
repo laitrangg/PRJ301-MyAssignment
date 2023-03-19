@@ -14,7 +14,8 @@ public class Role {
 
     private int id;
     private String name;
-    private ArrayList<Feature> feature = new ArrayList<>();
+    private ArrayList<Account> accounts = new ArrayList<>();
+    private ArrayList<Feature> features = new ArrayList<>();
 
     public Role() {
     }
@@ -40,12 +41,20 @@ public class Role {
         this.name = name;
     }
 
-    public ArrayList<Feature> getFeature() {
-        return feature;
+    public ArrayList<Account> getAccounts() {
+        return accounts;
     }
 
-    public void setFeature(ArrayList<Feature> feature) {
-        this.feature = feature;
+    public void setAccounts(ArrayList<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public ArrayList<Feature> getFeatures() {
+        return features;
+    }
+
+    public void setFeatures(ArrayList<Feature> features) {
+        this.features = features;
     }
 
 }
