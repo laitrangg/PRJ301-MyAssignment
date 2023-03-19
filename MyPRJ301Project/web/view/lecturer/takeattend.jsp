@@ -1,6 +1,6 @@
 <%-- 
     Document   : takeattend
-    Created on : Mar 14, 2023, 5:39:47 PM
+    Created on : Mar 19, 2023, 11:26:56 PM
     Author     : My PC
 --%>
 
@@ -89,3 +89,4 @@
         <a style="font-size: 20px" href="timetable?lid=${requestScope.ses.lecturer.id}">Back</a>
     </body>
 </html>
+
