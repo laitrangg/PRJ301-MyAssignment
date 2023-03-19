@@ -4,7 +4,6 @@
  */
 package model;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -13,36 +12,24 @@ import java.util.ArrayList;
  */
 public class Student {
 
-    private int id;
+    private String id;
     private String name;
-    private String login;
-    private String imgUrl;
-    private String email;
-    private String phone;
-    private boolean gender;
-    private LocalDate dob;
     private ArrayList<Group> groups = new ArrayList<>();
     private ArrayList<Attendance> attendances = new ArrayList<>();
 
     public Student() {
     }
 
-    public Student(int id, String name, String login, String imgUrl, String email, String phone, boolean gender, LocalDate dob) {
+    public Student(String id, String name) {
         this.id = id;
         this.name = name;
-        this.login = login;
-        this.imgUrl = imgUrl;
-        this.email = email;
-        this.phone = phone;
-        this.gender = gender;
-        this.dob = dob;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -52,54 +39,6 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public boolean isGender() {
-        return gender;
-    }
-
-    public void setGender(boolean gender) {
-        this.gender = gender;
-    }
-
-    public LocalDate getDob() {
-        return dob;
-    }
-
-    public void setDob(LocalDate dob) {
-        this.dob = dob;
     }
 
     public ArrayList<Group> getGroups() {
