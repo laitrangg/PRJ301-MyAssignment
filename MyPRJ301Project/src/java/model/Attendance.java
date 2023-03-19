@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *
@@ -12,29 +12,21 @@ import java.time.LocalDateTime;
  */
 public class Attendance {
 
-    private Session session;
     private Student student;
+    private Session session;
     private boolean present;
     private String description;
-    private LocalDateTime recordTime;
+    private Date record_time;
 
     public Attendance() {
     }
 
-    public Attendance(Session session, Student student, boolean present, String description, LocalDateTime recordTime) {
-        this.session = session;
+    public Attendance(Student student, Session session, boolean present, String description, Date record_time) {
         this.student = student;
+        this.session = session;
         this.present = present;
         this.description = description;
-        this.recordTime = recordTime;
-    }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
+        this.record_time = record_time;
     }
 
     public Student getStudent() {
@@ -43,6 +35,14 @@ public class Attendance {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
     }
 
     public boolean isPresent() {
@@ -61,12 +61,12 @@ public class Attendance {
         this.description = description;
     }
 
-    public LocalDateTime getRecordTime() {
-        return recordTime;
+    public Date getRecord_time() {
+        return record_time;
     }
 
-    public void setRecordTime(LocalDateTime recordTime) {
-        this.recordTime = recordTime;
+    public void setRecord_time(Date record_time) {
+        this.record_time = record_time;
     }
 
 }
