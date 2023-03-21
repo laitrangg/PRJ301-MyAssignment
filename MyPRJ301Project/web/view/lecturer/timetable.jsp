@@ -11,68 +11,82 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../assets/css/bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/style.css">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="../css/TimetableStyle.css"/>
     </head>
     <body>
-        <a href="http://localhost:9999/MyProject/home">Home</a> ||
-        <a href="http://localhost:9999/MyProject/logout">Logout</a>
-        <div style="text-align: center">
-            Lecturer: <input type="text" readonly="readonly" value="${requestScope.lecturer.name}"/>
-
-            <table border="1px">
-                <thead>
-                    <tr>
-                        <th> <form action="timetable" method="GET">
-                                <input type="hidden" name="lid" value="${param.lid}"/>
-                                From: <input type="date" name="from" value="${requestScope.from}"/><br>
-                                To: <input type="date" name="to" value="${requestScope.to}"/>
-                                <input type="submit" value="View"/> 
-                            </form> 
-                        </th>
-                        <c:forEach items="${requestScope.dates}" var="d">
-                            <th>${helper.getDayNameofWeek(d)}<br/>
-                                <fmt:formatDate value="${d}" pattern="dd/MM"/></th>
-                            </c:forEach>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${requestScope.slots}" var="slot">
-                        <tr>
-                            <td>Slot ${slot.id}
-                                <br>
-                                <a class="label label-success">(${slot.description})</a></td>
+        <div class="container ">
+            <div class="col-md-12">
+                <h1><span>FPT University Academic Portal</span></h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <span><a href="../home">Home</a></span>
+                    </li>
+                </ol>
+                <form action="timetable" method="GET">
+                    <div class="lecturer text-center">
+                        Lecturer: <input type="text" readonly="readonly" value="${requestScope.lecturer.id}"/>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">
+                                    <input type="hidden" name="lid" value="${param.lid}"/>
+                                    From: <input type="date" name="from" value="${requestScope.from}"/>
+                                    <br>
+                                    To  : <input type="date" name="to" value="${requestScope.to}"/>
+                                    <input class="btn-success" type="submit" value="View"/> 
+                                </th>
                                 <c:forEach items="${requestScope.dates}" var="d">
-                                <td>
-                                    <c:forEach items="${requestScope.sessions}" var="ses">
-                                        <c:if test="${helper.compare(ses.date,d) eq 0 and (ses.timeslot.id eq slot.id)}">
-                                            ${ses.group.name} <br>
-                                            -${ses.group.subject.name} <br>
-                                            at  ${ses.room.name}<br>
-                                            <c:if test="${(helper.getDaystoCurrent(ses.date) >0) and (helper.getDaystoCurrent(ses.date) <1)}"> 
-                                                <a href="takeatt?id=${ses.id}"> Take Attendance</a> ||
-                                            </c:if>
-                                            <c:if test="${helper.getDaystoCurrent(ses.date) >=1}"> 
-                                                <a href="takeatt?id=${ses.id}"> Detail Attendance</a> ||
-                                            </c:if>
-                                            <a href="status?gid=${ses.group.id}&lid=${ses.lecturer.id}&subid=${ses.group.subject.id}">Status</a>
-                                            <c:if test="${ses.attended}">
-                                                <a> <br>(<font color="Green">Attended</font>) </a>
-                                                </c:if>
-                                                <c:if test="${!ses.attended}">
-                                                <a> <br><font color="black">(Not Yet)</font> </a>
-                                                </c:if>
-
-                                        </c:if>
-
+                                    <th>${helper.getDayNameofWeek(d)}</th>
                                     </c:forEach>
-                                </td>
+                            </tr>
+                            <tr>
+                                <c:forEach items="${requestScope.dates}" var="d">
+                                    <th>
+                                        <fmt:formatDate value="${d}" pattern="dd/MM"/>
+                                    </th>
+                                </c:forEach>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.slots}" var="slot">
+                                <tr>
+                                    <td>Slot ${slot.id} <br/> <span class="label label-success">${slot.description}</span></td> 
+                                        <c:forEach items="${requestScope.dates}" var="d">
+                                        <td>
+                                            <c:forEach items="${requestScope.sessions}" var="ses">
+                                                <c:if test="${helper.compare(ses.date,d) eq 0 and (ses.timeslot.id eq slot.id)}">
+                                                    <a href="takeatt?id=${ses.id}">${ses.group.name}-${ses.group.subject.name}</a>
+                                                    <br/>
+                                                    <a href="status?gid=${ses.group.id}&lid=${ses.lecturer.id}&subid=${ses.group.subject.id}">Status</a>
+                                                    <br/>
+                                                    ${ses.room.name}
+                                                    <br/>
+                                                    <c:choose>
+                                                        <c:when test="${ses.attandated}">
+                                                            <a href=""><font color="green">(Attended)</font></a>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                            <a href=""><font color="red">(Not yet)</font></a>                                    
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:if>
+                                                </c:forEach>
+                                        </td>
+                                    </c:forEach>
+                                </tr>
                             </c:forEach>
-                        </tr>
-                    </c:forEach>
-                </tbody> 
-            </table>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
 
