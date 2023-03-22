@@ -20,17 +20,18 @@ import model.Role;
  */
 public class AccountDBContext extends DBContext<Account> {
 
+    
     public Account get(String username, String password) {
         try {
-            String sql = "SELECT a.username,a.displayname,a.id\n"
-                    + "               ,r.rid,r.rname\n"
-                    + "               ,f.fid,f.fname,f.url\n"
-                    + "               	FROM Account a \n"
-                    + "               LEFT JOIN Role_Account ra ON a.username = ra.username\n"
-                    + "               LEFT JOIN [Role] r ON r.rid = ra.rid\n"
-                    + "               LEFT JOIN Role_Feature rf ON rf.rid = r.rid\n"
-                    + "               LEFT JOIN Feature f ON f.fid = rf.fid\n"
-                    + "                WHERE a.username = ? AND a.[password] = ?";
+            String sql = "SELECT a.username,a.displayname\n"
+                    + "	,r.rid,r.rname\n"
+                    + "	,f.fid,f.fname,f.url\n"
+                    + "	FROM Account a \n"
+                    + "	LEFT JOIN Role_Account ra ON a.username = ra.username\n"
+                    + "	LEFT JOIN [Role] r ON r.rid = ra.rid\n"
+                    + "	LEFT JOIN Role_Feature rf ON rf.rid = r.rid\n"
+                    + "	LEFT JOIN Feature f ON f.fid = rf.fid\n"
+                    + "WHERE a.username =? AND a.[password] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, username);
             stm.setString(2, password);
@@ -43,7 +44,6 @@ public class AccountDBContext extends DBContext<Account> {
                     account = new Account();
                     account.setUsername(rs.getString("username"));
                     account.setDisplayname(rs.getString("displayname"));
-                    account.setId(rs.getString("id"));
                 }
                 int rid = rs.getInt("rid");
                 if (rid != 0) {
@@ -69,6 +69,7 @@ public class AccountDBContext extends DBContext<Account> {
             Logger.getLogger(AccountDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+
     }
 
     @Override
@@ -95,4 +96,5 @@ public class AccountDBContext extends DBContext<Account> {
     public ArrayList<Account> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 }

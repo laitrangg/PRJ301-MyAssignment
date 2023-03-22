@@ -17,15 +17,35 @@ import model.Student;
  * @author My PC
  */
 public class StudentDBContext extends DBContext<Student> {
+    
 
-    public ArrayList<Student> list(int gid) {
+    public Student get(String username) {
+        Student s = new Student();
+        try {
+            String sql = "select s.stdid, s.stdname from Account a inner join Student s\n"
+                    + "on a.username = s.stdid where a.username = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, username);
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                s.setId(rs.getString("stdid"));
+                s.setName(rs.getString("stdname"));
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Student> getlist(int gid) {
         try {
             ArrayList<Student> students = new ArrayList<>();
             String sql = "SELECT DISTINCT s.stdid,s.stdname\n"
                     + "FROM [Session] ses \n"
-                    + "	LEFT JOIN [Group] g ON g.gid = ses.gid\n"
-                    + "	INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n"
-                    + "	INNER JOIN Student s ON sg.stdid = s.stdid\n"
+                    + "LEFT JOIN [Group] g ON g.gid = ses.gid\n"
+                    + "INNER JOIN [Student_Group] stdg ON stdg.gid = g.gid\n"
+                    + "INNER JOIN Student s ON stdg.stdid = s.stdid\n"
                     + "WHERE g.gid = ?";
 
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -41,24 +61,6 @@ public class StudentDBContext extends DBContext<Student> {
 
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    public Student get(String id) {
-        try {
-            String sql = "SELECT stdid,stdname FROM Student WHERE stdid = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setString(1, id);
-            ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
-                Student stu = new Student();
-                stu.setId(rs.getString("stdid"));
-                stu.setName(rs.getString("stdname"));
-                return stu;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LecturerDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -86,21 +88,28 @@ public class StudentDBContext extends DBContext<Student> {
     @Override
     public ArrayList<Student> list() {
         ArrayList<Student> students = new ArrayList<>();
-        String sql = "SELECT stdid,stdname FROM Student";
+        String sql = "SELECT stdid, stdname FROM Student";
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Student s = new Student();
-                String sid = rs.getString("stdid");
-                String sname = rs.getString("stdname");
-                s.setId(sid);
-                s.setName(sname);
+                s.setId(rs.getString("stdid"));
+                s.setName(rs.getString("stdname"));
                 students.add(s);
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return students;
+
     }
+//    public static void main(String[] args) {
+//        Student s = new Student();
+//        StudentDBContext sdb = new StudentDBContext();
+//        s= sdb.get("DungNTHE131615");
+//        System.out.println(s.toString());
+//        
+//    }
+
 }

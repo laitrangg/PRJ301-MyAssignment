@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Group;
 import model.Session;
+import model.Subject;
 
 /**
  *
@@ -19,33 +20,59 @@ import model.Session;
  */
 public class GroupDBContext extends DBContext<Group> {
 
-    public Group get(int gid, int lid, int subid) {
+    public ArrayList<Group> getSubject(String stdid) {
+        ArrayList<Group> groups = new ArrayList<>();
+        try {
+            String sql = "Select g.gid,sub.subid, sub.subname from [Group] g\n"
+                    + "INNER JOIN Student_Group stdg ON stdg.gid = g.gid\n"
+                    + "Inner join Student st on st.stdid = stdg.stdid\n"
+                    + "inner join [Subject] sub on sub.subid = g.subid\n"
+                    + "Where stdg.stdid = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, stdid);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Group g = new Group();
+                Subject s = new Subject();
+                g.setId(rs.getInt("gid"));
+                s.setId(rs.getInt("subid"));
+                s.setName(rs.getString("subname"));
+                g.setSubject(s);
+                groups.add(g);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GroupDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return groups;
+    }
+
+    public Group filter(int gid, String lid, int subid) {
 
         try {
             String sql = "SELECT DISTINCT ses.sesid\n"
-                    + "FROM [Session] ses \n"
-                    + "	LEFT JOIN [Group] g ON g.gid = ses.gid\n"
-                    + "	INNER JOIN [Student_Group] sg ON sg.gid = g.gid\n"
-                    + "	INNER JOIN Student s ON sg.stdid = s.stdid\n"
-                    + "	INNER JOIN Lecturer l ON l.lid = ses.lid\n"
-                    + "	INNER JOIN [Subject] sb ON sb.subid = g.subid\n"
-                    + "WHERE g.gid = ? and l.lid = ? and sb.subid = ?";
+                    + "                     FROM [Session] ses\n"
+                    + "                     LEFT JOIN [Group] g ON g.gid = ses.gid\n"
+                    + "                     INNER JOIN [Student_Group] stdg ON stdg.gid = g.gid\n"
+                    + "                     INNER JOIN Student s ON stdg.stdid = s.stdid\n"
+                    + "                     INNER JOIN Lecturer l ON l.lid = ses.lid\n"
+                    + "                     INNER JOIN [Subject] sub ON sub.subid = g.subid\n"
+                    + "                     WHERE g.gid = ? and l.lid = ? and sub.subid = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, gid);
-            stm.setInt(2, lid);
+            stm.setString(2, lid);
             stm.setInt(3, subid);
             ResultSet rs = stm.executeQuery();
-            Group group = new Group();
-            group.setId(gid);
             ArrayList<Session> sessions = new ArrayList<>();
             while (rs.next()) {
                 SessionDBContext sesDB = new SessionDBContext();
-                Session session = sesDB.get(rs.getInt("sesid"));
-                sessions.add(session);
+                Session ses = sesDB.get(rs.getInt("sesid"));
+                sessions.add(ses);
             }
+            Group group = new Group();
+            group.setId(gid);
             group.setSessions(sessions);
-            StudentDBContext stdDB = new StudentDBContext();
-            group.setStudents(stdDB.list(gid));
+            StudentDBContext stddb = new StudentDBContext();
+            group.setStudents(stddb.getlist(gid));
             return group;
         } catch (SQLException ex) {
             Logger.getLogger(SessionDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,4 +104,13 @@ public class GroupDBContext extends DBContext<Group> {
     public ArrayList<Group> list() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public static void main(String[] args) {
+        GroupDBContext gdb = new GroupDBContext();
+        ArrayList<Group> g = gdb.getSubject("HoangTVHE131415");
+        for (Group group : g) {
+            System.out.println(group);
+        }
+    }
+
 }
