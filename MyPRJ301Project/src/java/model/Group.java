@@ -96,5 +96,9 @@ public class Group {
     public void setYear(int year) {
         this.year = year;
     }
-
+    
+    @Override
+    public String toString() {
+        return "Group{" + "id=" + id + ", name=" + name + ", subject=" + subject + ", lecturer=" + lecturer + ", sessions=" + sessions + ", students=" + students + ", sem=" + sem + ", year=" + year + '}';
+    }
 }

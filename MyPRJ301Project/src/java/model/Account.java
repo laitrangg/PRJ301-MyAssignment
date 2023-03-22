@@ -15,17 +15,17 @@ public class Account {
     private String username;
     private String password;
     private String displayname;
-    private String id;
+    private Lecturer lecturer;
     private ArrayList<Role> roles = new ArrayList<>();
 
     public Account() {
     }
 
-    public Account(String username, String password, String displayname, String id) {
+    public Account(String username, String password, String displayname, Lecturer lecturer) {
         this.username = username;
         this.password = password;
         this.displayname = displayname;
-        this.id = id;
+        this.lecturer = lecturer;
     }
 
     public String getUsername() {
@@ -52,12 +52,12 @@ public class Account {
         this.displayname = displayname;
     }
 
-    public String getId() {
-        return id;
+    public Lecturer getLecturer() {
+        return lecturer;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setLecturer(Lecturer lecturer) {
+        this.lecturer = lecturer;
     }
 
     public ArrayList<Role> getRoles() {

@@ -12,26 +12,26 @@ import java.util.ArrayList;
  */
 public class Lecturer {
 
-    private int id;
+    private String id;
     private String name;
-    private String account;
+    private Account account;
     private ArrayList<Group> groups = new ArrayList<>();
     private ArrayList<Session> sessions = new ArrayList<>();
 
     public Lecturer() {
     }
 
-    public Lecturer(int id, String name, String account) {
+    public Lecturer(String id, String name, Account account) {
         this.id = id;
         this.name = name;
         this.account = account;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -43,11 +43,11 @@ public class Lecturer {
         this.name = name;
     }
 
-    public String getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(String account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 
@@ -67,4 +67,8 @@ public class Lecturer {
         this.sessions = sessions;
     }
 
+    @Override
+    public String toString() {
+        return "Lecturer{" + "id=" + id + ", name=" + name + ", account=" + account + ", groups=" + groups + ", sessions=" + sessions + '}';
+    }
 }

@@ -68,5 +68,10 @@ public class Attendance {
     public void setRecord_time(Date record_time) {
         this.record_time = record_time;
     }
+    
+    @Override
+    public String toString() {
+        return "Attendance{" + "student=" + student + ", session=" + session + ", present=" + present + ", description=" + description + ", record_time=" + record_time + '}';
+    }
 
 }
