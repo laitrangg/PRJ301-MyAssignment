@@ -71,15 +71,15 @@
                                                 ${ses.room.name}
                                                 <br/>
 
-                                                <c:if test="${ses.attandated}">
-                                                    <c:if test="${ses.attandances.get(0).present}">
+                                                <c:if test="${ses.attended}">
+                                                    <c:if test="${ses.attendances.get(0).present}">
                                                         <a href=""><font color="green">(Present)</font></a>
                                                         </c:if>
-                                                        <c:if test="${!ses.attandances.get(0).present}">
+                                                        <c:if test="${!ses.attendances.get(0).present}">
                                                         <a href=""><font color="red">(Absent)</font></a>
                                                         </c:if>
                                                     </c:if>
-                                                    <c:if test="${!ses.attandated}">
+                                                    <c:if test="${!ses.attended}">
                                                     <a href=""><font color="black">(Not yet)</font></a>  
                                                     </c:if>
                                                 </c:if>
@@ -96,5 +96,7 @@
                     <li>(<font color="red">absent</font>): ${requestScope.student.id} had NOT attended this activity / ${requestScope.student.name} đã vắng mặt buổi này</li> 
                     <li>(-): no data was given / chưa có dữ liệu</li> 
                 </ul>
+            </div>
+        </div>
     </body>
 </html>

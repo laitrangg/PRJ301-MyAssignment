@@ -69,15 +69,15 @@
                                                     ${ses.room.name}
                                                     <br/>
                                                     <c:choose>
-                                                        <c:when test="${ses.attandated}">
+                                                        <c:when test="${ses.attended}">
                                                             <a href=""><font color="green">(Attended)</font></a>
-                                                            </c:when>
-                                                            <c:otherwise>
+                                                        </c:when>
+                                                        <c:otherwise>
                                                             <a href=""><font color="red">(Not yet)</font></a>                                    
-                                                            </c:otherwise>
-                                                        </c:choose>
+                                                        </c:otherwise>
+                                                    </c:choose>
                                                     </c:if>
-                                                </c:forEach>
+                                            </c:forEach>
                                         </td>
                                     </c:forEach>
                                 </tr>

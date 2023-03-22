@@ -1,5 +1,5 @@
 <%-- 
-    Document   : attendance
+    Document   : attendstatus
     Created on : Mar 13, 2023, 8:08:47 AM
     Author     : My PC
 --%>
@@ -15,8 +15,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="../assets/css/bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/css/style.css">
         <title>Document</title>
-        <link rel="stylesheet" href="../css/AttendanceStu.css"/>
     </head>
     <body>
         <div class="container">
@@ -108,25 +108,25 @@
                                                                 <td>${ses.room.name}</td>
                                                                 <td>${ses.lecturer.id}</td>
                                                                 <td>${ses.group.name}</td>
-                                                                <c:if test="${ses.attandated}">
-                                                                    <c:if test="${ses.attandances.get(0).present}">
+                                                                <c:if test="${ses.attended}">
+                                                                    <c:if test="${ses.attendances.get(0).present}">
                                                                         <td>
                                                                             <font color="green">Present</font>
                                                                         </td>
                                                                     </c:if>
-                                                                    <c:if test="${!ses.attandances.get(0).present}">
+                                                                    <c:if test="${!ses.attendances.get(0).present}">
                                                                         <td>
                                                                             <font color="red">Absent</font>
                                                                             <c:set var="absent" value="${absent+1}"/>
                                                                         </td>
                                                                     </c:if>
                                                                 </c:if>
-                                                                <c:if test="${ses.attandated eq false}">
+                                                                <c:if test="${ses.attended eq false}">
                                                                     <td>
                                                                         <font color="black">Future</font>
                                                                     </td>
                                                                 </c:if>
-                                                                <td>${ses.attandances.get(0).description}</td>
+                                                                <td>${ses.attendances.get(0).description}</td>
                                                             </tr>
                                                         </c:forEach>
                                                         <tr style="text-align: center">
