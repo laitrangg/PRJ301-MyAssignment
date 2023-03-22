@@ -47,5 +47,9 @@ public class Room {
     public void setSessions(ArrayList<Session> sessions) {
         this.sessions = sessions;
     }
-
+    
+    @Override
+    public String toString() {
+        return "Room{" + "id=" + id + ", name=" + name + ", sessions=" + sessions + '}';
+    }
 }

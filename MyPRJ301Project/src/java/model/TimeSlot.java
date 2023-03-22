@@ -48,4 +48,8 @@ public class TimeSlot {
         this.sessions = sessions;
     }
 
+    @Override
+    public String toString() {
+        return "TimeSlot{" + "id=" + id + ", description=" + description + ", sessions=" + sessions + '}';
+    }
 }

@@ -21,12 +21,13 @@ public class Session {
     private Group group;
     private int index;
     private boolean attended;
+    private Student student;
     private ArrayList<Attendance> attendances = new ArrayList<>();
 
     public Session() {
     }
 
-    public Session(int id, Lecturer lecturer, Room room, TimeSlot timeslot, Date date, Group group, int index, boolean attended) {
+    public Session(int id, Lecturer lecturer, Room room, TimeSlot timeslot, Date date, Group group, int index, boolean attended, Student student) {
         this.id = id;
         this.lecturer = lecturer;
         this.room = room;
@@ -35,6 +36,7 @@ public class Session {
         this.group = group;
         this.index = index;
         this.attended = attended;
+        this.student = student;
     }
 
     public int getId() {
@@ -101,12 +103,25 @@ public class Session {
         this.attended = attended;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     public ArrayList<Attendance> getAttendances() {
         return attendances;
     }
 
     public void setAttendances(ArrayList<Attendance> attendances) {
         this.attendances = attendances;
+    }
+
+    @Override
+    public String toString() {
+        return "Session{" + "id=" + id + ", lecturer=" + lecturer + ", room=" + room + ", timeslot=" + timeslot + ", date=" + date + ", group=" + group + ", index=" + index + ", attended=" + attended + ", attendances=" + attendances + '}';
     }
 
 }

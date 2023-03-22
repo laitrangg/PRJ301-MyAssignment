@@ -48,4 +48,9 @@ public class Subject {
         this.groups = groups;
     }
 
+    @Override
+    public String toString() {
+        return "Subject{" + "id=" + id + ", name=" + name + ", groups=" + groups + '}';
+    }
+
 }

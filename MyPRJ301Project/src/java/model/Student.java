@@ -15,7 +15,7 @@ public class Student {
     private String id;
     private String name;
     private ArrayList<Group> groups = new ArrayList<>();
-    private ArrayList<Attendance> attendances = new ArrayList<>();
+    private ArrayList<Attendance> atts = new ArrayList<>();
 
     public Student() {
     }
@@ -50,11 +50,15 @@ public class Student {
     }
 
     public ArrayList<Attendance> getAttendances() {
-        return attendances;
+        return atts;
     }
 
     public void setAttendances(ArrayList<Attendance> attendances) {
-        this.attendances = attendances;
+        this.atts = atts;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" + "id=" + id + ", name=" + name + ", groups=" + groups + ", atts=" + atts + '}';
+    }
 }
