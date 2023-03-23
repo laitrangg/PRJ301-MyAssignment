@@ -21,8 +21,13 @@
     </head>
     <body>
         <div class="container ">
-            <div class="col-md-12">
+            <div class="col-md-12">               
                 <h1><span>FPT University Academic Portal</span></h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <span><a href="../home">Home</a></span>
+                    </li>
+                </ol>
                 <h2>Activities for
                     <span>${requestScope.student.id} (${requestScope.student.name})</span>
                 </h2>
